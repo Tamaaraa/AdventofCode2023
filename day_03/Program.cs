@@ -148,4 +148,3 @@ for (int j = 0; j < rows.Length; j++) {
 }
 
 Console.WriteLine("Gear multipliers equal: " + totalSum2); 
-
