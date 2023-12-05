@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-string input = File.ReadAllText(@"./input");
+string input = File.ReadAllText("./input");
 
 var rows = input.Split('\n');
 var totalSum = 0;
@@ -12,16 +12,16 @@ bool added;
 for (int j = 0; j < rows.Length; j++)
 {
     string curr_row = rows[j];
-    var symbols2 = Regex.Matches("nah", @".");
-    var symbols3 = Regex.Matches("nah", @".");
-    var symbols = Regex.Matches(curr_row, @"[^.0-9]");
+    var symbols2 = Regex.Matches("nah", ".");
+    var symbols3 = Regex.Matches("nah", ".");
+    var symbols = Regex.Matches(curr_row, "[^.0-9]");
     if (j > 0)
     {
-        symbols2 = Regex.Matches(rows[j - 1], @"[^.0-9]");
+        symbols2 = Regex.Matches(rows[j - 1], "[^.0-9]");
     }
     if (j < rows.Length - 1)
     {
-        symbols3 = Regex.Matches(rows[j + 1], @"[^.0-9]");
+        symbols3 = Regex.Matches(rows[j + 1], "[^.0-9]");
     }
     var numbers = Regex.Matches(curr_row, @"\d+");
 
