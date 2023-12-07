@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Numerics;
 
 string input = File.ReadAllText("./input");
 
@@ -22,19 +22,19 @@ foreach (string dist in dists)
     longDist += dist;
 }
 
-double ans1 = 1;
+BigInteger ans1 = 1;
 
 for (int i = 0; i < times.Length; i++)
 {
-    ans1 *= Solve(double.Parse(times[i]), double.Parse(dists[i]));
+    ans1 *= Solve(BigInteger.Parse(times[i]), BigInteger.Parse(dists[i]));
 }
 
-static double Solve(double time, double dist)
+static BigInteger Solve(BigInteger time, BigInteger dist)
 {
-    double ans = 0;
+    BigInteger ans = 0;
     for (int i = 0; i < time + 1; i++)
     {
-        double diff = i * (time - i);
+        BigInteger diff = i * (time - i);
         if (diff >= dist)
         {
             ans++;
@@ -43,7 +43,7 @@ static double Solve(double time, double dist)
     return ans;
 }
 
-double ans2 = Solve(double.Parse(longTime), double.Parse(longDist));
+BigInteger ans2 = Solve(BigInteger.Parse(longTime), BigInteger.Parse(longDist));
 
 Console.WriteLine(ans1);
 Console.WriteLine(ans2);
