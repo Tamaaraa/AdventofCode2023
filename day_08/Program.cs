@@ -18,6 +18,7 @@ static class Program
         }
 
         int steps1 = 0;
+        int steps2 = 0;
         string pos = "AAA";
         while (pos != "ZZZ")
         {
@@ -31,6 +32,38 @@ static class Program
                 }
             }
         }
+
+        List<string> positions = pathDict.Keys.Where(k => k.EndsWith("A")).ToList();
+        do
+        {
+            foreach (char ch in directions)
+            {
+                List<string> newPositions = new();
+                foreach (string pos2 in positions)
+                {
+                    newPositions.Add(pathDict[pos2][ch]);
+                }
+                positions = newPositions;
+                steps2++;
+                if (AllEndInZ(positions))
+                {
+                    break;
+                }
+            }
+        } while (!AllEndInZ(positions));
         Console.WriteLine(steps1);
+        Console.WriteLine(steps2);
+    }
+
+    static bool AllEndInZ(List<string> positions)
+    {
+        foreach (string pos in positions)
+        {
+            if (!pos.EndsWith("Z"))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
