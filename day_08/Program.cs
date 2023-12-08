@@ -1,4 +1,7 @@
-﻿namespace AdventOfCode;
+﻿using System.Linq.Expressions;
+using System.Net.NetworkInformation;
+
+namespace AdventOfCode;
 
 static class Program
 {
@@ -34,36 +37,60 @@ static class Program
         }
 
         List<string> positions = pathDict.Keys.Where(k => k.EndsWith("A")).ToList();
-        do
-        {
-            foreach (char ch in directions)
-            {
-                List<string> newPositions = new();
-                foreach (string pos2 in positions)
-                {
-                    newPositions.Add(pathDict[pos2][ch]);
-                }
-                positions = newPositions;
-                steps2++;
-                if (AllEndInZ(positions))
-                {
-                    break;
-                }
-            }
-        } while (!AllEndInZ(positions));
-        Console.WriteLine(steps1);
-        Console.WriteLine(steps2);
-    }
 
-    static bool AllEndInZ(List<string> positions)
-    {
-        foreach (string pos in positions)
+        List<long> durations = new();
+        foreach (string pos2 in positions)
         {
-            if (!pos.EndsWith("Z"))
+            if (steps2 > 0)
             {
-                return false;
+                durations.Add(steps2);
+            }
+            pos = pos2;
+            steps2 = 0;
+            while (!pos.EndsWith("Z"))
+            {
+                foreach (char ch in directions)
+                {
+                    if (!pos.EndsWith("Z"))
+                    {
+                        steps2++;
+                        pos = pathDict[pos][ch];
+                    }
+                }
             }
         }
-        return true;
+        durations.Add(steps2);
+
+        Console.WriteLine(steps1);
+        Console.WriteLine(LCMOfList(durations));
+    }
+
+    // find the greatest common divider using the Euclidean Algorithm
+    static long GCD(long a, long b)
+    {
+        while (b != 0)
+        {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    // find the lowest common multiple
+    static long LCM(long a, long b)
+    {
+        return a * b / GCD(a, b);
+    }
+
+    // Find LCM between 2 numbers until list is fully iterated through.
+    static long LCMOfList(List<long> numbers)
+    {
+        long result = numbers[0];
+        for (int i = 1; i < numbers.Count; i++)
+        {
+            result = LCM(result, numbers[i]);
+        }
+        return result;
     }
 }
