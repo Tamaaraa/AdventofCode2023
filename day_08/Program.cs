@@ -1,7 +1,4 @@
-﻿using System.Linq.Expressions;
-using System.Net.NetworkInformation;
-
-namespace AdventOfCode;
+﻿namespace AdventOfCode;
 
 static class Program
 {
